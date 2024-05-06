@@ -1,0 +1,87 @@
+\documentclass{article}
+\input{preamble}
+
+\def\coursetitle{Automata and Computability}
+\def\examtype{Assignment}
+\def\marks{25}
+\def\problemset{CSE331}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setexamheading
+
+\begin{document}
+
+
+\begin{examinstructions}
+There are a total of five problems. You have to solve all of them.
+\end{examinstructions}
+
+
+
+\begin{problem}{1}{CO5}{Nonregular Language}{25}
+Use the pumping lemma to \textbf{demonstrate} that \(L_1\), \(L_2\), \(L_3\), \(L_4\) and \(L_5\) is not regular.
+
+\begin{enumerate}[(a)]
+\item \( L_1 = \{ w \in \{\0, \1, \2 \}^* :\0^n\1^n\2^n\text{ where } n \geq 0 \} \) (5 points)
+\item \( L_2 = \{ w \in \{\0, \1\}^* :\0^x\1^y\0^z\text{ where } z > x+y \text{ and }  x, y \geq 0 \  \} \) (5 points)
+\item \( L_3 = \{ w \in \{\0, \1\}^* :w \text{ is a palindrome} \} \) (5 points)
+\item \( L_4 = \{ w \in \{\a, \b\}^* : \text{ numbers of } \a\text{ in } w \text{ is a prime number} \} \) (5 points)
+\item \( L_5 = \{ w \in \{\0\}^* : {{\0}^3}^{\!^{n}} \text{ where }  n \geq 0 \} \) (5 points)
+\end{enumerate}
+\end{problem}
+
+
+
+
+\sectionline
+\begin{enumerate}[(a)]
+\item Assume for the sake of contradiction that \(L_1\) is regular. Then let \(p\) be the pumping length for \(L_1\). Now we take the string 
+\[ w = \0^p \1^p \2^p \in L_1. \]
+Then the length of \(w\) is \(|w| = 3p \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_1\) for each \(i \geq 0\). Since \(|xy| \leq p\), and the first \(p\) characters of \(w\) are all \(\0\)s, we can conclude that \(y\) consists of only \(\0\)s.
+
+Then, for \(i=2\), \(xy^2z\) will be 
+\[ xy^2z = xyyz = \0^{p + |y|} \1^p \2^p \notin L_1 .  \]
+We have excess 0s in \(xyyz\). Thus we get a contradiction! Hence, \(L_1\) is not a regular language.
+
+\item Assume for the sake of contradiction that \(L_2\) is regular. Then let \(p\) be the pumping length for \(L_2\). Now we take the string 
+\[ w = \0^p \1^p \0^{2p+1} \in L_2. \]
+Then the length of \(w\) is \(|w| = 4p+1 > p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_2\) for each \(i \geq 0\). Since \(|xy| \leq p\), and the first \(p\) characters of \(w\) are all \(\0\)s, we can conclude that \(y\) consists of only \(\0\)s.
+
+Then, for \(i=2\), \(xy^2z\) will be 
+\[ xy^2z = xyyz = \0^{p + |y|} \1^p \0^{2p+1} .  \]
+This string is not in \(L_2\), since \(p+|y|+p \ge 2p+1\). Thus we get a contradiction! Hence, \(L_2\) is not a regular language.
+\item Assume for the sake of contradiction that \(L_3\) is regular. Then let \(p\) be the pumping length for \(L_3\). Now we take the string 
+\[ w = \0^p \1 \0^{p} \in L_3. \]
+Then the length of \(w\) is \(|w| = 2p+1 > p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_3\) for each \(i \geq 0\). Since \(|xy| \leq p\), and the first \(p\) characters of \(w\) are all \(\0\)s, we can conclude that \(y\) consists of only \(\0\)s.
+
+Then, for \(i=2\), \(xy^2z\) will be 
+\[ xy^2z = xyyz = \0^{p + |y|} \1 \0^{p} = \0^p \0^{|y|} \1 \0^p .  \]
+This string is not a palindrome, so it is not in \(L_3\). Thus we get a contradiction! Hence, \(L_3\) is not a regular language.
+\item Assume for the sake of contradiction that \(L_4\) is regular. Then let \(p\) be the pumping length for \(L_4\). Now we take the string 
+\[  w = \a^q \in L_4 , \]
+where \(q\) is a prime number greater than or equal to \(p\). 
+The length of \(w\) is \(|w| = q \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_4\) for each \(i \geq 0\). \ 
+
+The length of \(w = xyz\) is \(q\). Then, for \(i=2\), the length of \(xy^2z = xyyz\) will be \(q + |y|\), which should be a prime. So, for any \(i>0\), the length of \(xy^iz\)  will be \(q + (i-1) |y|\).\
+
+So, for \(i > 0\), 
+\[ xy^iz = xy y^{i-1} z = \a^{q + (i-1) |y|} .\]
+Since this string is in \(L_4\), \(q + (i-1) |y|\) is a prime number for each \(i > 0\). But this is clearly not true, since choosing \(i=q+1\) gives 
+\[ q + (i-1) |y| = q + q |y| , \]
+which is divisible by \(q\).
+Thus we get a contradiction! Hence, \(L_4\) is not a regular language.
+\item Assume for the sake of contradiction that \(L_5\) is regular. Then let \(p\) be the pumping length for \(L_5\). Now we take the string 
+\[ w = {{\0}^3}^{\!^{p}}\in L_5. \]
+Then the length of \(w\) is \(|w| = 3^p > p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_5\) for each \(i \geq 0\). 
+
+Then, for \(i=2\), \(xy^2z\) will be 
+\[ xy^2z = xyyz = \0 ^{3^p + |y|}  .  \]
+Since this string is in \(L_5\), \(3^p + |y|\) is a power of \(3\) (which is, of course, larger than \(3^p\)). The next power of \(3\) larger than \(3^p\) is \(3^{p+1}\). So we have 
+\[3^p + |y| \ge 3^{p+1} \implies |y| \ge 3^{p+1} - 3^p = 2 \cdot 3^p . \]
+On the other hand, \(|xy|\le p\) gives us that \(|y| \le p\). So 
+\[ p \ge |y| \ge 2 \cdot 3^p .  \]
+This is clearly false since \(3^p > p\). Thus we get a contradiction! Hence, \(L_5\) is not a regular language.
+\end{enumerate}
+
+\end{document}

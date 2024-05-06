@@ -1,0 +1,106 @@
+\usepackage[margin=0.6in]{geometry}
+\usepackage{bm}
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, environ}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikzsymbols}
+\usepackage{tcolorbox}
+\usepackage{mathpazo}
+\usepackage[object=vectorian]{pgfornament}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\renewcommand{\a}{\texttt{a}}
+\renewcommand{\b}{\texttt{b}}
+\renewcommand{\c}{\texttt{c}}
+\renewcommand{\d}{\texttt{d}}
+
+\newcommand{\0}{\texttt{0}}
+\newcommand{\1}{\texttt{1}}
+\newcommand{\2}{\texttt{2}}
+\newcommand{\h}{\texttt{\#}}
+
+\usepackage{tikz}
+\usepackage{float}
+\usetikzlibrary{automata, positioning, arrows}
+\tikzset{
+%->, % makes the edges directed
+>=stealth, % makes the arrow heads bold
+node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
+every picture/.style=thick,
+every state/.style={thick, fill=gray!10}, % sets the properties for each ’state’ node
+initial text=$ $, % sets the text that appears on the start arrow
+}
+
+\newcommand{\sectionline}{%
+  \noindent
+  \begin{center}
+  {\color{black}
+    \resizebox{0.5\linewidth}{1ex}
+    {{%
+    {\begin{tikzpicture}
+    \node  (C) at (0,0) {};
+    \node (D) at (9,0) {};
+    \path (C) to [ornament=85] (D);
+    \end{tikzpicture}}}}}%
+    \end{center}
+  }
+
+
+\pagestyle{fancy}
+
+
+\newenvironment{problem2}[2][Problem]
+    { \begin{mdframed}[backgroundcolor=white] \textbf{#1 #2} \\}
+    {  \end{mdframed}}
+
+\newenvironment{problem}[5][Problem]
+    { \begin{tcolorbox}[colback=white, title= {#1 #2 (#3): #4 (#5 points)}]}
+    {  \end{tcolorbox}}
+
+% Define solution environment
+\newenvironment{solution}
+    {\textit{Proof:}}
+    {}
+
+\renewcommand{\qed}{\quad\qedsymbol}
+
+% prevent line break in inline mode
+\binoppenalty=\maxdimen
+\relpenalty=\maxdimen
+
+\newcommand{\examinfo}[6]{
+\rhead{\Huge{\boxed{\textsf{\textbf{#1}}}}}
+%\rhead{\inclraphics[scale=.2]{bracuLogo.jpeg}}
+\lhead{#2\\ #3} 
+\chead{\textsc{#4 \\Total marks: #5}}
+}
+
+% default heading
+\def\coursecode{Spring 2024}
+\def\coursetitle{Automata and Computability}
+\def\examtype{Midterm}
+\def\marks{40}
+\def\duration{80}
+
+\newcommand{\setexamheading}{
+\examinfo{\problemset}{\coursecode}{\coursetitle}{\examtype}{\marks}{\duration}
+}
+
+\newenvironment{examinstructions}{
+    \begin{tcolorbox}
+    \begin{center}
+}{
+    \end{center}
+    \end{tcolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
