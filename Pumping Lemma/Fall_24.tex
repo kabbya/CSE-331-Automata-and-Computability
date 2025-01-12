@@ -1,0 +1,86 @@
+\documentclass{article}
+\input{preamble}
+
+\def\coursetitle{Automata and Computability}
+\def\examtype{Assignment}
+\def\marks{25}
+\def\problemset{CSE331}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setexamheading
+
+\begin{document}
+
+
+\begin{examinstructions}
+There are a total of \(n\) problems. You have to solve all of them.
+\end{examinstructions}
+
+
+
+\begin{problem}{1}{CO5}{Nonregular Language}{25}
+Use the pumping lemma to \textbf{demonstrate} that \(L_1\) and \(L_2\) are not regular.
+
+\begin{enumerate}[(a)]
+\item \( L_1 = \{ w \in \{\0, \1\}^* : w = \0^{n!} \text{ where } n \geq 0 \} \) (5 points)
+\item \( L_2 = \{ w \in \{\0, \1\}^* : w = \0^a\1^b\1^c \0^d\text{ where } a+b=c+d \text{ and }  a,b,c,d \geq 0 \  \} \) (5 points)
+\end{enumerate}
+\end{problem}
+
+
+
+
+\sectionline
+\begin{enumerate}[(a)]
+\item Assume for the sake of contradiction that \(L_1\) is regular. Then let \(p\) be the pumping length for \(L_1\). Now we take the string 
+\[ w = \0^{p!} \in L_1. \]
+Then the length of \(w\) is \(|w| = p! \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_1\) for each \(i \geq 0\). \(y\) consists of only \(\0\)s, so 
+\[ xy^i z = \0^{p! + (i-1) |y| } \]
+Then, for \(i=2\), \(xy^2z\) will be 
+\[ xy^2z = xyyz = \0^{p! + |y|} .  \]
+Now, \(|y| \le p < p \cdot p! \), hence, 
+\[ p! < p! + |y| < p!  + p \cdot p! = p! \left(1+p\right) = (p+1)! \]
+So \(p! < p! + |y| < (p+1)!\), and the length of \(xy^2z\) is strictly between two consecutive factorials. Hence, it cannot be a factorial. 
+Thus we get a contradiction! Hence, \(L_1\) is not a regular language. 
+
+\item[(a)] \textbf{(Alternate Solution)} Assume for the sake of contradiction that \(L_1\) is regular. Then its complement language \(\overline L_1\) is also regular. 
+\[ \overline L_1 = \{ w \in \{\0, \1\}^* : w = \0^{m} \text{ where } m \ne n! \text{ for any } n \ge 0 \} . \]
+Let \(p\) be the pumping length of \(\overline L_1\). Now we take the string 
+\[w = \0 ^{p \cdot p!} \in \overline L_1 . \]
+Then the length of \(w\) is \(|w| = p \cdot p! \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_1\) for each \(i \geq 0\). \(y\) consists of only \(\0\)s, so 
+\[ xy^i z = \0^{p \cdot p! + (i-1) |y| } . \]
+Now, since \(0 < |y| \le p\), we have that \(|y|\) divides \( p! \). Now, choosing \(i = 1 + \frac{p!}{|y|}\), we have 
+\[ xy^i z = \0^{p \cdot p! + (i-1) |y| } 
+= \0^{p \cdot p! + \frac{p!}{|y|} |y| } 
+= \0 ^{p \cdot p! + p! }
+= \0 ^{(p+1)! } \notin \overline L_1 . \]
+Therefore, \(\overline L_1\) is not a regular language. Thus we get a contradiction, and hence \(L_1\) cannot be regular as well. 
+
+\item Assume for the sake of contradiction that \(L_2\) is regular. Then let \(p\) be the pumping length for \(L_2\). Now we take the string 
+\[ w = \0^{p} \1 \1 \0^p \in L_2. \]
+Then the length of \(w\) is \(|w| = 2p+2 \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_2\) for each \(i \geq 0\). \(|xy| \le p\), so \(y\) consists of only \(\0\)s, so 
+\[ xy^i z = \0^{p + (i-1) |y| } \1 \1 \0^p . \]
+We choose \(i=4\), so that 
+\[ xy^4 z = \0^{p + 3 |y| } \1 \1 \0^p . \]
+Since this is in \(L_2\), one can write it as \(\0^a\1^b\1^c \0^d\) for \(a+b=c+d\). By equating 
+\[ \0^{p + 3 |y| } \1 \1 \0^p = \0^a\1^b\1^c \0^d ,  \]
+we get \(a= p + 3 |y|\), \(d = p\) and \(b+c=2\). So \(c-b \le 2\). Furthermore, 
+\[ c-b = a-d =  3 |y| \ge 3 ,  \]
+as \(|y| \ge 1\). So we get \(c-b \le 2\) and \(c-b \ge 3\), which is a contradiction! Therefore, \(L_2\) is not regular. 
+
+\item [(b)] \textbf{(Alternate Solutiion)} Assume for the sake of contradiction that \(L_2\) is regular. Then let \(p\) be the pumping length for \(L_2\). Now we take the string 
+\[ w = \0^{p} \1 ^p \1 ^p \0^p \in L_2. \]
+Then the length of \(w\) is \(|w| = 4p \geq p\). So \(w\) can be split into \(xyz\) such that \(|y| > 0\), \(|xy| \leq p\), and \(xy^iz \in L_2\) for each \(i \geq 0\). \(|xy| \le p\), so \(y\) consists of only \(\0\)s, so 
+\[ xy^i z = \0^{p + (i-1) |y| } \1 ^p \1 ^p \0^p . \]
+We choose \(i=2p+2\), so that 
+\[ xy^{2p+2} z = \0^{p + (2p+1) |y| } \1 ^p \1 ^p \0^p . \]
+Since this is in \(L_2\), one can write it as \(\0^a\1^b\1^c \0^d\) for \(a+b=c+d\). By equating 
+\[ \0^{p + (2p+1) |y| } \1 ^p \1 ^p \0^p = \0^a\1^b\1^c \0^d ,  \]
+we get \(a= p + (2p+1) |y|\), \(d = p\) and \(b+c=2p\). So \(c-b \le 2p\). Furthermore, 
+\[ c-b = a-d =  (2p+1) |y| \ge 2p+1 ,  \]
+as \(|y| \ge 1\). So we get \(c-b \le 2p\) and \(c-b \ge 2p+1\), which is a contradiction! Therefore, \(L_2\) is not regular. 
+
+\end{enumerate}
+
+\end{document}
